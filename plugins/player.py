@@ -87,7 +87,7 @@ async def show_current_playing_time(_, m: Message):
     utcnow = datetime.utcnow().replace(microsecond=0)
     #if mp.msg.get('current') is not None:
         #await mp.msg['current'].delete()
-    await message.reply_text(
+    await m.reply_text(
         f"{emoji.PLAY_BUTTON}  {utcnow - start_time} / "
         f"{timedelta(seconds=playlist[0].audio.duration)}",
         parse_mode="Markdown",
