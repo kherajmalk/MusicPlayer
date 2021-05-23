@@ -23,7 +23,7 @@ async def current_vc_filter(_, __, m: Message):
 current_vc = filters.create(current_vc_filter)
 
 
-@Client.on_message((current_vc & filters.command("play") | (current_vc & filters.audio))
+@Client.on_message((current_vc & filters.command("play") | (current_vc & filters.audio & filters.private))
 )
 async def play_track(client, m: Message):
     group_call = mp.group_call
@@ -85,9 +85,9 @@ async def show_current_playing_time(_, m: Message):
         await m.reply_text(f"{emoji.PLAY_BUTTON} Nothing Playing")
         return
     utcnow = datetime.utcnow().replace(microsecond=0)
-    if mp.msg.get('current') is not None:
-        await mp.msg['current'].delete()
-    mp.msg['current'] = await playlist[0].reply_text(
+    #if mp.msg.get('current') is not None:
+        #await mp.msg['current'].delete()
+    await playlist[0].reply_text(
         f"{emoji.PLAY_BUTTON}  {utcnow - start_time} / "
         f"{timedelta(seconds=playlist[0].audio.duration)}",
         parse_mode="Markdown",
